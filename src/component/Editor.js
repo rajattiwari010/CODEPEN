@@ -4,10 +4,10 @@ import 'codemirror/theme/material.css'
 import 'codemirror/mode/xml/xml'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/css/css'
-import { Controlled as ControlledEditor } from 'react-codemirror2'
+import CodeMirror from '@uiw/react-codemirror'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCompressAlt, faExpandAlt } from '@fortawesome/free-solid-svg-icons'
-
+import { javascript } from '@codemirror/lang-javascript';
 export default function Editor(props) {
 
     const [open, setOpen] = useState(true)
@@ -34,17 +34,14 @@ export default function Editor(props) {
                 > <FontAwesomeIcon icon={open ? faCompressAlt : faExpandAlt} />
                 </button>
             </div>
-            <ControlledEditor
-                onBeforeChange={handleChange}
+
+            <CodeMirror
                 value={value}
-                className="code-mirror-wrapper"
-                options={{
-                    lineWrapping: true,
-                    lint: true,
-                    mode: language,
-                    theme: 'material',
-                    lineNumbers: true
-                }}
+                height="200px"
+                className='code-mirror-wrapper'
+                theme="dark"
+                extensions={[javascript({ jsx: true })]}
+                onChange={onChange}
             />
         </div>
     )
